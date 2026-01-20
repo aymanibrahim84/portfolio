@@ -1,1 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Projects | Ayman Ibrahim</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="../assets/style.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Page-only styling for premium project cards -->
+  <style>
+    .wrap {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 10px 20px 80px;
+    }
+
+    .subtitle {
+      text-align: center;
+      max-width: 860px;
+      margin: 0 auto 26px;
+      color: #94a3b8;
+      font-size: 1.05rem;
+    }
+
+    .badge-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(56,189,248,0.08);
+      border: 1px solid rgba(56,189,248,0.15);
+      color: #cbd5e1;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .pill.green {
+      background: rgba(16,185,129,0.10);
+      border: 1px solid rgba(16,185,129,0.18);
+      color: #10b981;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 980px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .project {
+      background: #020617;
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,184,0.08);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .project::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(56,189,248,0.14), transparent 45%),
+        radial-gradient(circle at 82% 70%, rgba(16,185,129,0.10), transparent 48%);
+      pointer-events: none;
+    }
+
+    .project-inner {
+      position: relative;
+      padding: 22px;
+    }
+
+    .project-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .project-title {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 900;
+      letter-spacing: 0.2px;
+    }
+
+    .mini-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(2,6,23,0.60);
+      border: 1px solid rgba(148,163,184,0.12);
+      color: #94a3b8;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    /* Dashboard preview block (no real screenshot needed yet) */
+    .preview {
+      border-radius: 14px;
+      background: rgba(2,6,23,0.65);
+      border: 1px solid rgba(56,189,248,0.12);
+      padding: 14px;
+      margin: 14px 0 16px;
+      position: relative;
+      overflow: hidden;
+      min-height: 170px;
+    }
+
+    .preview::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(56,189,248,0.08), transparent 40%),
+        radial-gradient(circle at 70% 40%, rgba(56,189,248,0.10), transparent 55%);
+      pointer-events: none;
+    }
+
+    .dash {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .tile {
+      background: rgba(15,23,42,0.65);
+      border: 1px solid rgba(148,163,184,0.10);
+      border-radius: 12px;
+      padding: 10px;
+      min-height: 70px;
+    }
+
+    .tile .bar {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(56,189,248,0.18);
+      margin-top: 8px;
+      overflow: hidden;
+    }
+
+    .tile .bar span {
+      display: block;
+      height: 100%;
+      width: 65%;
+      background: rgba(16,185,129,0.55);
+      border-radius: 999px;
+    }
+
+    .tile small {
+      color: #94a3b8;
+      display: block;
+      margin-top: 6px;
+      font-size: 12px;
+    }
+
+    .details {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .label {
+      color: #38bdf8;
+      font-weight: 700;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .text {
+      color: #cbd5e1;
+      font-size: 0.98rem;
+    }
+
+    .tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .tool {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(56,189,248,0.08);
+      border: 1px solid rgba(56,189,248,0.14);
+      color: #cbd5e1;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .outcomes {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .out {
+      background: rgba(2,6,23,0.70);
+      border: 1px solid rgba(16,185,129,0.16);
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: #cbd5e1;
+    }
+
+    .out i { color: #10b981; margin-right: 8px; }
+
+    .note {
+      margin-top: 26px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 18px 20px;
+      border-radius: 14px;
+      background: rgba(2,6,23,0.75);
+      border: 1px solid rgba(148,163,184,0.10);
+      color: #94a3b8;
+      max-width: 920px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .note i { color: #38bdf8; margin-top: 2px; }
+    .note strong { color: #e5e7eb; }
+  </style>
+</head>
+
+<body>
+
+<nav class="top-nav">
+  <a href="../">Home</a>
+  <a href="../about/">About</a>
+  <a href="../skills/">Skills</a>
+  <a href="../experience/">Experience</a>
+  <a href="../certificates/">Certificates</a>
+  <a href="../contact/">Contact</a>
+</nav>
+
+<header class="page-header">
+  <h1>Projects</h1>
+  <p>Sample dashboards and reports showcasing my Excel-based data analysis work.</p>
+</header>
+
+<div class="wrap">
+
+  <p class="subtitle">
+    These examples use <strong>anonymized or sample data</strong>. The goal is to show the type of dashboards,
+    reporting workflows, and KPIs I build — clean, refreshable, and easy to maintain.
+  </p>
+
+  <div class="badge-row">
+    <span class="pill"><i class="fa-solid fa-file-excel"></i> Excel Dashboards</span>
+    <span class="pill"><i class="fa-solid fa-arrows-rotate"></i> Refreshable Reporting</span>
+    <span class="pill green"><i class="fa-solid fa-shield-halved"></i> Anonymized Data</span>
+  </div>
+
+  <div class="grid">
+
+    <!-- PROJECT 1 -->
+    <article class="project">
+      <div class="project-inner">
+        <div class="project-head">
+          <h2 class="project-title">Sales Performance Dashboard</h2>
+          <div class="mini-tags">
+            <span class="tag"><i class="fa-solid fa-chart-line"></i> KPIs</span>
+            <span class="tag"><i class="fa-solid fa-calendar"></i> Monthly</span>
+          </div>
+        </div>
+
+        <div class="preview">
+          <div class="dash">
+            <div class="tile">
+              <strong>Total Sales</strong>
+              <div class="bar"><span style="width:78%"></span></div>
+              <small>Trend + Comparison</small>
+            </div>
+            <div class="tile">
+              <strong>Target vs Actual</strong>
+              <div class="bar"><span style="width:62%"></span></div>
+              <small>Variance overview</small>
+            </div>
+            <div class="tile">
+              <strong>Top Products</strong>
+              <div class="bar"><span style="width:70%"></span></div>
+              <small>Ranked list</small>
+            </div>
+            <div class="tile">
+              <strong>Top Regions</strong>
+              <div class="bar"><span style="width:55%"></span></div>
+              <small>Regional comparison</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="details">
+          <div class="row">
+            <div class="label"><i class="fa-solid fa-bullseye"></i> Problem</div>
+            <div class="text">Track monthly trends, top products, regional performance, and target vs actual in one view.</div>
+          </div>
+          <div class="row">
+            <div class="label"><i class="fa-solid fa-database"></i> Data</div>
+            <div class="text">Excel export (10,000+ rows): Date, Product, Region, Sales Amount, Target.</div>
+          </div>
+          <div class="row">
+            <div class="label"><i class="fa-solid fa-screwdriver-wrench"></i> Tools</div>
+            <div class="tools">
+              <span class="tool">PivotTables</span>
+              <span class="tool">Power Query</span>
+              <span class="tool">XLOOKUP</span>
+              <span class="tool">Charts</span>
+              <span class="tool">Conditional Formatting</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="outcomes">
+          <div class="out"><i class="fa-solid fa-check"></i> Reduced manual reporting time by ~80%</div>
+          <div class="out"><i class="fa-solid fa-check"></i> Enabled fast decisions with a refreshable dashboard</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- PROJECT 2 -->
+    <article class="project">
+      <div class="project-inner">
+        <div class="project-head">
+          <h2 class="project-title">Inventory Analysis Dashboard</h2>
+          <div class="mini-tags">
+            <span class="tag"><i class="fa-solid fa-boxes-stacked"></i> Stock</span>
+            <span class="tag"><i class="fa-solid fa-triangle-exclamation"></i> Alerts</span>
+          </div>
+        </div>
+
+        <div class="preview">
+          <div class="dash">
+            <div class="tile">
+              <strong>Aging Inventory</strong>
+              <div class="bar"><span style="width:68%"></span></div>
+              <small>Days since last sale</small>
+            </div>
+            <div class="tile">
+              <strong>Reorder Flags</strong>
+              <div class="bar"><span style="width:52%"></span></div>
+              <small>Low stock alerts</small>
+            </div>
+            <div class="tile">
+              <strong>Dead Stock</strong>
+              <div class="bar"><span style="width:40%"></span></div>
+              <small>Zero movement items</small>
+            </div>
+            <div class="tile">
+              <strong>Category Summary</strong>
+              <div class="bar"><span style="width:74%"></span></div>
+              <small>Grouped insights</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="details">
+          <div class="row">
+            <div class="label"><i class="fa-solid fa-bullseye"></i> Problem</div>
+            <div class="text">Identify aging inventory, calculate reorder points, and flag dead stock.</div>
+          </div>
+          <div class="row">
+            <div class="label"><i class="fa-solid fa-database"></i> Data</div>
+            <div class="text">CSV: SKU, Stock Level, Last Sale Date, Cost, Category.</div>
+          </div>
+          <div class="row">
+            <div class="label"><i class="fa-solid fa-screwdriver-wrench"></i> Tools</div>
+            <div class="tools">
+              <span class="tool">Power Query</span>
+              <span class="tool">SUMIFS</span>
+              <span class="tool">IF Functions</span>
+              <span class="tool">Data Validation</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="outcomes">
+          <div class="out"><i class="fa-solid fa-check"></i> Identified $50K+ dead stock opportunities (sample scenario)</div>
+          <div class="out"><i class="fa-solid fa-check"></i> Automated reorder alerts, saving 5+ hours/week</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- PROJECT 3 -->
+    <article class="project">
+      <div class="project-inner">
+        <div class="project-head">
+          <h2 class="project-title">HR Headcount & Attrition Report</h2>
+          <div class="mini-tags">
+            <span class="tag"><i class="fa-solid fa-users"></i> HR</span>
+            <span class="tag"><i class="fa-solid fa-rotate"></i> Monthly</span>
+          </div>
+        </div>
+
+        <div class="preview">
+          <div class="dash">
+            <div class="tile">
+              <strong>Headcount</strong>
+              <div class="bar"><span style="width:72%"></span></div>
+              <small>By department</small>
+            </div>
+            <div class="tile">
+              <strong>Attrition Rate</strong>
+              <div class="bar"><span style="width:46%"></span></div>
+              <small>Monthly trend</small>
+            </div>
+            <div class="tile">
+              <strong>Hiring Pipeline</strong>
+              <div class="bar"><span style="width:58%"></span></div>
+              <small>Stage overview</small>
+            </div>
+            <div class="tile">
+              <strong>Manager Summary</strong>
+              <div class="bar"><span style="width:64%"></span></div>
+              <small>Team view</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="details">
+          <div class="row">
+            <div class="label"><i class="fa-solid fa-bullseye"></i> Problem</div>
+            <div class="text">Track headcount, attrition rates, and hiring pipeline metrics for monthly reporting.</div>
+          </div>
+          <div class="row">
+            <div class="label"><i class="fa-solid fa-database"></i> Data</div>
+            <div class="text">HR export: Employee ID, Department, Hire Date, Status, Manager.</div>
+          </div>
+          <div class="row">
+            <div class="label"><i class="fa-solid fa-screwdriver-wrench"></i> Tools</div>
+            <div class="tools">
+              <span class="tool">PivotTables</span>
+              <span class="tool">COUNTIFS</span>
+              <span class="tool">DATE Functions</span>
+              <span class="tool">Charts</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="outcomes">
+          <div class="out"><i class="fa-solid fa-check"></i> Automated monthly HR reporting</div>
+          <div class="out"><i class="fa-solid fa-check"></i> Reduced prep time from ~2 days to ~30 minutes</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- PROJECT 4 -->
+    <article class="project">
+      <div class="project-inner">
+        <div class="project-head">
+          <h2 class="project-title">Marketing Analytics Dashboard</h2>
+          <div class="mini-tags">
+            <span class="tag"><i class="fa-solid fa-bullhorn"></i> Funnel</span>
+            <span class="tag"><i class="fa-solid fa-coins"></i> CAC</span>
+          </div>
+        </div>
+
+        <div class="preview">
+          <div class="dash">
+            <div class="tile">
+              <strong>Lead → Conversion</strong>
+              <div class="bar"><span style="width:60%"></span></div>
+              <small>Funnel view</small>
+            </div>
+            <div class="tile">
+              <strong>CAC Model</strong>
+              <div class="bar"><span style="width:50%"></span></div>
+              <small>Simple cost model</small>
+            </div>
+            <div class="tile">
+              <strong>Top Channels</strong>
+              <div class="bar"><span style="width:76%"></span></div>
+              <small>ROI comparison</small>
+            </div>
+            <div class="tile">
+              <strong>Deal Value</strong>
+              <div class="bar"><span style="width:66%"></span></div>
+              <small>Trends & summary</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="details">
+          <div class="row">
+            <div class="label"><i class="fa-solid fa-bullseye"></i> Problem</div>
+            <div class="text">Track the lead-to-conversion funnel and calculate a simple customer acquisition cost (CAC) model.</div>
+          </div>
+          <div class="row">
+            <div class="label"><i class="fa-solid fa-database"></i> Data</div>
+            <div class="text">CRM export: Lead Source, Date, Status, Deal Value, Marketing Spend.</div>
+          </div>
+          <div class="row">
+            <div class="label"><i class="fa-solid fa-screwdriver-wrench"></i> Tools</div>
+            <div class="tools">
+              <span class="tool">Power Query</span>
+              <span class="tool">PivotTables</span>
+              <span class="tool">SUMIFS</span>
+              <span class="tool">What-If Analysis</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="outcomes">
+          <div class="out"><i class="fa-solid fa-check"></i> Visualized the full conversion funnel</div>
+          <div class="out"><i class="fa-solid fa-check"></i> Identified top-performing channels with ~3× ROI</div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="note">
+    <i class="fa-solid fa-circle-info"></i>
+    <div>
+      <strong>Note:</strong> All projects use anonymized or sample data. Real client files and screenshots are not published.
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Ayman Ibrahim
+</footer>
+
+</body>
+</html>
 
