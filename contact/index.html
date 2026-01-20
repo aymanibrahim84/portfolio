@@ -9,17 +9,133 @@
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <!-- Page-only styling for a premium contact layout -->
+  <!-- Contact-only background + premium cards (no CSS file changes needed) -->
   <style>
+    /* ============ BACKGROUND SYSTEM (CONTACT UNIQUE) ============ */
+    .ct-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+    /* 1) Wave pattern (dual layer: blue + green), diagonal motion */
+    .ct-waves {
+      opacity: 0.22;
+      background:
+        /* Blue wave layer */
+        repeating-linear-gradient(
+          135deg,
+          rgba(56,189,248,0.12) 0px,
+          rgba(56,189,248,0.12) 2px,
+          transparent 2px,
+          transparent 22px
+        ),
+        /* Green wave layer */
+        repeating-linear-gradient(
+          135deg,
+          rgba(16,185,129,0.10) 0px,
+          rgba(16,185,129,0.10) 2px,
+          transparent 2px,
+          transparent 28px
+        );
+      filter: blur(0px);
+      animation: waveMove 7s linear infinite;
+      transform: rotate(-14deg) scale(1.25);
+    }
+
+    @keyframes waveMove {
+      0%   { background-position: 0 0, 0 0; }
+      100% { background-position: 260px 260px, -320px -320px; }
+    }
+
+    /* 2) Gradient particles (4 spheres: blue, green, purple, pink) */
+    .ct-particles i {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      filter: blur(42px);
+      opacity: 0.22;
+      animation: particleFloat 7.5s ease-in-out infinite alternate;
+    }
+
+    .ct-particles i:nth-child(1) {
+      top: 12%;
+      left: 10%;
+      background: radial-gradient(circle, rgba(56,189,248,0.65), transparent 60%);
+    }
+
+    .ct-particles i:nth-child(2) {
+      top: 32%;
+      right: 14%;
+      background: radial-gradient(circle, rgba(16,185,129,0.62), transparent 60%);
+      animation-duration: 8.8s;
+    }
+
+    .ct-particles i:nth-child(3) {
+      bottom: 16%;
+      left: 22%;
+      background: radial-gradient(circle, rgba(168,85,247,0.62), transparent 60%);
+      animation-duration: 6.9s;
+    }
+
+    .ct-particles i:nth-child(4) {
+      bottom: 10%;
+      right: 20%;
+      background: radial-gradient(circle, rgba(236,72,153,0.58), transparent 60%);
+      animation-duration: 9.3s;
+    }
+
+    @keyframes particleFloat {
+      0%   { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(20px, -18px) scale(1.08); }
+    }
+
+    /* 3) Floating contact icons (6 icons), gentle float + rotation */
+    .ct-icons i {
+      position: absolute;
+      font-size: 54px;
+      color: rgba(148,163,184,0.16);
+      text-shadow: 0 0 30px rgba(56,189,248,0.10);
+      animation: contactIconFloat 6.2s ease-in-out infinite;
+    }
+
+    .ct-icons i:nth-child(1) { top: 18%; left: 8%;  animation-delay: 0.0s; }
+    .ct-icons i:nth-child(2) { top: 56%; left: 10%; animation-delay: 0.9s; }
+    .ct-icons i:nth-child(3) { top: 22%; right: 16%; animation-delay: 1.8s; }
+    .ct-icons i:nth-child(4) { bottom: 18%; right: 12%; animation-delay: 2.7s; }
+    .ct-icons i:nth-child(5) { bottom: 10%; left: 45%; animation-delay: 3.6s; }
+    .ct-icons i:nth-child(6) { top: 72%; right: 32%; animation-delay: 4.5s; }
+
+    @keyframes contactIconFloat {
+      0%   { transform: translate(0,0) rotate(0deg); opacity: 0.18; }
+      50%  { transform: translate(14px,-22px) rotate(6deg); opacity: 0.32; }
+      100% { transform: translate(0,0) rotate(0deg); opacity: 0.18; }
+    }
+
+    /* readability overlay */
+    .readability {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.35),
+        rgba(0,0,0,0.18),
+        rgba(0,0,0,0.48)
+      );
+    }
+
+    /* keep content above bg */
+    .page-layer { position: relative; z-index: 2; }
+
+    /* ============ CONTACT PAGE UI (Premium) ============ */
     .wrap {
-      max-width: 1100px;
+      max-width: 1150px;
       margin: 0 auto;
       padding: 10px 20px 80px;
     }
 
     .subtitle {
       text-align: center;
-      max-width: 860px;
+      max-width: 900px;
       margin: 0 auto 26px;
       color: #94a3b8;
       font-size: 1.05rem;
@@ -27,269 +143,229 @@
 
     .grid {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 18px;
-      align-items: start;
+      align-items: stretch;
     }
 
-    @media (max-width: 980px) {
+    @media (max-width: 1050px) {
       .grid { grid-template-columns: 1fr; }
     }
 
-    .panel {
-      background: #020617;
-      border-radius: 16px;
-      padding: 26px;
-      border: 1px solid rgba(148,163,184,0.08);
+    /* Glassmorphism cards */
+    .cardx {
+      border-radius: 18px;
+      padding: 22px;
+      background: rgba(2,6,23,0.62);
+      border: 1px solid rgba(148,163,184,0.14);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       position: relative;
       overflow: hidden;
+      transition: transform 0.18s ease, border-color 0.18s ease;
+      min-height: 200px;
     }
 
-    .panel::before {
+    /* subtle inner glow */
+    .cardx::before {
       content: "";
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 18% 18%, rgba(56,189,248,0.14), transparent 45%),
-        radial-gradient(circle at 82% 70%, rgba(16,185,129,0.10), transparent 48%);
+        radial-gradient(circle at 18% 18%, rgba(56,189,248,0.10), transparent 48%),
+        radial-gradient(circle at 82% 70%, rgba(16,185,129,0.08), transparent 52%),
+        radial-gradient(circle at 60% 30%, rgba(236,72,153,0.06), transparent 55%);
       pointer-events: none;
     }
 
-    .panel > * { position: relative; }
-
-    .title-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 14px;
+    /* gradient top border appears on hover */
+    .cardx::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #38bdf8, #10b981, #a855f7, #ec4899);
+      opacity: 0;
+      transition: opacity 0.18s ease;
+      pointer-events: none;
     }
 
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(56,189,248,0.08);
-      border: 1px solid rgba(56,189,248,0.15);
-      color: #cbd5e1;
-      font-size: 13px;
-      white-space: nowrap;
+    .cardx:hover {
+      transform: translateY(-4px);
+      border-color: rgba(56,189,248,0.35);
     }
 
-    .pill.green {
-      background: rgba(16,185,129,0.10);
-      border: 1px solid rgba(16,185,129,0.18);
-      color: #10b981;
+    .cardx:hover::after {
+      opacity: 1;
     }
 
-    .links {
-      display: grid;
-      gap: 12px;
-      margin-top: 14px;
-    }
-
-    .link-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 16px;
-      border-radius: 14px;
-      background: rgba(2,6,23,0.60);
-      border: 1px solid rgba(148,163,184,0.10);
-      color: #cbd5e1;
-      text-decoration: none;
-    }
-
-    .link-item:hover {
-      border-color: rgba(56,189,248,0.28);
-      transform: translateY(-1px);
-      transition: 0.15s ease;
-    }
+    .cardx > * { position: relative; }
 
     .icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
       display: grid;
       place-items: center;
       background: rgba(56,189,248,0.10);
       border: 1px solid rgba(56,189,248,0.18);
       color: #38bdf8;
-      flex: 0 0 auto;
+      margin-bottom: 12px;
+      font-size: 18px;
     }
 
-    .link-text small {
-      display: block;
+    .title {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 900;
+      letter-spacing: 0.2px;
+    }
+
+    .desc {
+      margin-top: 10px;
       color: #94a3b8;
-      margin-top: 2px;
-      font-size: 12px;
+      line-height: 1.7;
+      font-size: 0.98rem;
     }
 
-    .cta {
+    .value {
+      margin-top: 10px;
+      color: #e5e7eb;
+      font-weight: 700;
+      word-break: break-word;
+    }
+
+    .link {
       margin-top: 14px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .btn2 {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 12px 16px;
+      padding: 10px 14px;
       border-radius: 999px;
-      font-weight: 700;
-      text-decoration: none;
-    }
-
-    .btn2.primary {
-      background: #10b981;
-      color: #020617;
-    }
-
-    .btn2.secondary {
-      border: 1px solid #10b981;
+      background: rgba(16,185,129,0.10);
+      border: 1px solid rgba(16,185,129,0.18);
       color: #10b981;
-      background: transparent;
+      text-decoration: none;
+      font-weight: 800;
+      width: fit-content;
     }
 
-    .note {
-      margin-top: 18px;
-      color: #94a3b8;
-      line-height: 1.7;
+    .link.secondary {
+      background: rgba(56,189,248,0.08);
+      border: 1px solid rgba(56,189,248,0.16);
+      color: #cbd5e1;
     }
 
     .mini {
-      margin-top: 14px;
+      margin-top: 18px;
       padding: 14px 16px;
       border-radius: 14px;
-      background: rgba(2,6,23,0.70);
-      border: 1px solid rgba(148,163,184,0.10);
+      background: rgba(0,0,0,0.20);
+      border: 1px solid rgba(148,163,184,0.14);
       color: #cbd5e1;
     }
 
     .mini strong { color: #e5e7eb; }
+
+    /* Footer year */
+    .footer-year { display: inline; }
   </style>
 </head>
 
 <body>
 
-<nav class="top-nav">
-  <a href="../">Home</a>
-  <a href="../about/">About</a>
-  <a href="../skills/">Skills</a>
-  <a href="../projects/">Projects</a>
-  <a href="../experience/">Experience</a>
-  <a href="../certificates/">Certificates</a>
-</nav>
-
-<header class="page-header">
-  <h1>Contact</h1>
-  <p>Let’s connect — I’m happy to discuss dashboards, reporting, and refreshable Excel workflows.</p>
-</header>
-
-<div class="wrap">
-
-  <p class="subtitle">
-    Prefer a quick message? Use WhatsApp or email. For professional updates, connect on LinkedIn.
-  </p>
-
-  <div class="grid">
-
-    <!-- LINKS PANEL -->
-    <div class="panel">
-      <div class="title-row">
-        <h2 style="margin:0;">Links</h2>
-        <span class="pill green"><i class="fa-solid fa-circle-check"></i> Available</span>
-      </div>
-
-      <div class="links">
-
-        <a class="link-item" href="https://linkedin.com/in/ayman-boghdady-8a2b1319" target="_blank" rel="noopener">
-          <div class="icon"><i class="fa-brands fa-linkedin-in"></i></div>
-          <div class="link-text">
-            <div><strong>LinkedIn</strong></div>
-            <small>linkedin.com/in/ayman-boghdady-8a2b1319</small>
-          </div>
-        </a>
-
-        <div class="link-item" style="cursor: default;">
-          <div class="icon"><i class="fa-solid fa-location-dot"></i></div>
-          <div class="link-text">
-            <div><strong>Location</strong></div>
-            <small>Alexandria, Egypt</small>
-          </div>
-        </div>
-
-        <a class="link-item" href="mailto:aymnali8088@gmail.com">
-          <div class="icon"><i class="fa-solid fa-envelope"></i></div>
-          <div class="link-text">
-            <div><strong>Email</strong></div>
-            <small>aymnali8088@gmail.com</small>
-          </div>
-        </a>
-
-        <a class="link-item" href="https://wa.me/201095905995" target="_blank" rel="noopener">
-          <div class="icon"><i class="fa-brands fa-whatsapp"></i></div>
-          <div class="link-text">
-            <div><strong>Phone / WhatsApp</strong></div>
-            <small>+20 109 590 5995</small>
-          </div>
-        </a>
-
-      </div>
-
-      <div class="cta">
-        <a class="btn2 primary" href="mailto:aymnali8088@gmail.com">
-          <i class="fa-solid fa-paper-plane"></i> Email Me
-        </a>
-        <a class="btn2 secondary" href="https://wa.me/201095905995" target="_blank" rel="noopener">
-          <i class="fa-brands fa-whatsapp"></i> WhatsApp
-        </a>
-      </div>
-
-      <div class="note">
-        Typical response time: <strong style="color:#e5e7eb;">within 24–48 hours</strong>.
-      </div>
-    </div>
-
-    <!-- QUICK INFO PANEL -->
-    <div class="panel">
-      <div class="title-row">
-        <h2 style="margin:0;">Quick Info</h2>
-        <span class="pill"><i class="fa-solid fa-shield-halved"></i> Professional</span>
-      </div>
-
-      <div class="mini">
-        <strong>What to include in your message:</strong>
-        <ul style="margin-top:10px; padding-left:18px; color:#cbd5e1;">
-          <li>What the data is about (sales / inventory / HR / marketing)</li>
-          <li>Your goal (KPIs, dashboard, monthly report, cleanup)</li>
-          <li>Data format (Excel / CSV) and approximate size</li>
-          <li>Deadline (if any)</li>
-        </ul>
-      </div>
-
-      <div class="mini" style="margin-top:14px;">
-        <strong>Confidentiality:</strong><br />
-        Client names and datasets are not published. If needed, work can be demonstrated using anonymized samples.
-      </div>
-
-      <div class="mini" style="margin-top:14px;">
-        <strong>Primary tools:</strong><br />
-        Excel • Power Query • Dashboards • Business Reporting
-      </div>
-    </div>
-
-  </div>
-
+<!-- Background layers (z-index: 0) -->
+<div class="ct-bg ct-waves"></div>
+<div class="ct-bg ct-particles">
+  <i></i><i></i><i></i><i></i>
+</div>
+<div class="ct-bg ct-icons">
+  <i class="fa-solid fa-envelope"></i>
+  <i class="fa-solid fa-phone"></i>
+  <i class="fa-solid fa-paper-plane"></i>
+  <i class="fa-solid fa-comments"></i>
+  <i class="fa-solid fa-handshake"></i>
+  <i class="fa-solid fa-bell"></i>
 </div>
 
-<footer>
-  © <span id="year"></span> Ayman Ibrahim — Excel Data Analyst
-</footer>
+<!-- Readability overlay (z-index: 1) -->
+<div class="readability"></div>
+
+<!-- Content layer (z-index: 2) -->
+<div class="page-layer">
+
+  <nav class="top-nav">
+    <a href="../">Home</a>
+    <a href="../about/">About</a>
+    <a href="../skills/">Skills</a>
+    <a href="../projects/">Projects</a>
+    <a href="../experience/">Experience</a>
+    <a href="../certificates/">Certificates</a>
+  </nav>
+
+  <header class="page-header">
+    <h1>Contact</h1>
+    <p>Let’s connect — dashboards, reporting, and refreshable Excel workflows.</p>
+  </header>
+
+  <div class="wrap">
+    <p class="subtitle">
+      Choose the easiest way for you to reach me. I usually reply within <strong style="color:#e5e7eb;">24–48 hours</strong>.
+    </p>
+
+    <div class="grid">
+
+      <!-- Card 1: LinkedIn -->
+      <div class="cardx">
+        <div class="icon"><i class="fa-brands fa-linkedin-in"></i></div>
+        <h2 class="title">LinkedIn</h2>
+        <p class="desc">For professional updates and collaboration.</p>
+        <div class="value">linkedin.com/in/ayman-boghdady-8a2b1319</div>
+        <a class="link" href="https://linkedin.com/in/ayman-boghdady-8a2b1319" target="_blank" rel="noopener">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Open LinkedIn
+        </a>
+      </div>
+
+      <!-- Card 2: Email -->
+      <div class="cardx">
+        <div class="icon"><i class="fa-solid fa-envelope"></i></div>
+        <h2 class="title">Email</h2>
+        <p class="desc">Best for detailed requests and sharing files (Excel/CSV).</p>
+        <div class="value">aymnali8088@gmail.com</div>
+        <a class="link" href="mailto:aymnali8088@gmail.com">
+          <i class="fa-solid fa-paper-plane"></i> Send Email
+        </a>
+
+        <div class="mini">
+          <strong>Tip:</strong> Include your goal (KPIs/report/cleanup) + data size + deadline.
+        </div>
+      </div>
+
+      <!-- Card 3: WhatsApp / Phone + Location -->
+      <div class="cardx">
+        <div class="icon"><i class="fa-brands fa-whatsapp"></i></div>
+        <h2 class="title">Phone / WhatsApp</h2>
+        <p class="desc">Quick messages, quick coordination.</p>
+        <div class="value">+20 109 590 5995</div>
+        <a class="link" href="https://wa.me/201095905995" target="_blank" rel="noopener">
+          <i class="fa-brands fa-whatsapp"></i> WhatsApp Chat
+        </a>
+
+        <a class="link secondary" href="#" onclick="return false;">
+          <i class="fa-solid fa-location-dot"></i> Alexandria, Egypt
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    © <span id="year"></span> Ayman Ibrahim — Excel Data Analyst
+  </footer>
+
+</div>
 
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
@@ -297,4 +373,3 @@
 
 </body>
 </html>
-
