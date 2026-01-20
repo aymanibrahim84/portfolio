@@ -8,62 +8,399 @@
   <link rel="stylesheet" href="../assets/style.css" />
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- About-only background + layout styling -->
+  <style>
+    /* ========= PAGE BACKGROUND (Distinct from Home) ========= */
+
+    /* All background layers sit BEHIND content */
+    .ab-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+    /* 1) Diagonal Dots Pattern */
+    .ab-dots {
+      background-image: radial-gradient(rgba(56,189,248,0.16) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.20;
+      transform: rotate(-16deg) scale(1.2);
+      animation: dotsDrift 11s linear infinite;
+    }
+
+    @keyframes dotsDrift {
+      0%   { background-position: 0 0; }
+      100% { background-position: 280px 280px; }
+    }
+
+    /* 2) Gradient Orbs (green, cyan, purple) */
+    .ab-orbs::before,
+    .ab-orbs::after {
+      content: "";
+      position: absolute;
+      width: 430px;
+      height: 430px;
+      border-radius: 50%;
+      filter: blur(42px);
+      opacity: 0.26;
+      animation: orbFloat 7.2s ease-in-out infinite alternate;
+    }
+
+    .ab-orbs::before {
+      top: 12%;
+      left: 10%;
+      background: radial-gradient(circle, rgba(16,185,129,0.55), transparent 60%);
+    }
+
+    .ab-orbs::after {
+      bottom: 10%;
+      right: 12%;
+      background: radial-gradient(circle, rgba(56,189,248,0.55), transparent 60%);
+      animation-duration: 8.8s;
+    }
+
+    .ab-orb-purple {
+      position: absolute;
+      top: 40%;
+      right: 26%;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(168,85,247,0.55), transparent 60%);
+      filter: blur(42px);
+      opacity: 0.20;
+      animation: orbFloat 6.6s ease-in-out infinite alternate;
+    }
+
+    @keyframes orbFloat {
+      0%   { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(22px, -22px) scale(1.06); }
+    }
+
+    /* 3) Floating icons (about/professional themed) */
+    .ab-icons i {
+      position: absolute;
+      font-size: 54px;
+      color: rgba(148,163,184,0.18);
+      text-shadow: 0 0 30px rgba(56,189,248,0.10);
+      animation: iconFloat 6.8s ease-in-out infinite;
+    }
+
+    .ab-icons i:nth-child(1) { top: 18%; left: 12%;  animation-delay: 0.0s; }
+    .ab-icons i:nth-child(2) { top: 55%; left: 7%;   animation-delay: 0.9s; }
+    .ab-icons i:nth-child(3) { top: 26%; right: 18%; animation-delay: 1.8s; }
+    .ab-icons i:nth-child(4) { bottom: 18%; right: 12%; animation-delay: 2.7s; }
+    .ab-icons i:nth-child(5) { bottom: 12%; left: 42%; animation-delay: 3.6s; }
+    .ab-icons i:nth-child(6) { top: 70%; right: 30%; animation-delay: 4.5s; }
+
+    @keyframes iconFloat {
+      0%   { transform: translate(0,0) rotate(0deg); opacity: 0.20; }
+      50%  { transform: translate(14px,-22px) rotate(4deg); opacity: 0.34; }
+      100% { transform: translate(0,0) rotate(0deg); opacity: 0.20; }
+    }
+
+    /* Readability overlay */
+    .readability {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.35),
+        rgba(0,0,0,0.18),
+        rgba(0,0,0,0.45)
+      );
+    }
+
+    /* Content layer above background */
+    .page-layer { position: relative; z-index: 2; }
+
+    /* ========= ABOUT PAGE LAYOUT (Premium) ========= */
+
+    .wrap {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 10px 20px 80px;
+    }
+
+    .subtitle {
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto 26px;
+      color: #94a3b8;
+      font-size: 1.05rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 18px;
+      margin-top: 10px;
+      align-items: start;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: rgba(2,6,23,0.82);
+      border-radius: 16px;
+      padding: 26px;
+      border: 1px solid rgba(148,163,184,0.10);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(56,189,248,0.12), transparent 45%),
+        radial-gradient(circle at 82% 70%, rgba(16,185,129,0.10), transparent 48%),
+        radial-gradient(circle at 60% 30%, rgba(168,85,247,0.08), transparent 52%);
+      pointer-events: none;
+    }
+
+    .panel > * { position: relative; }
+
+    .meta {
+      color: #94a3b8;
+      margin-top: 10px;
+      line-height: 1.8;
+    }
+
+    .chips {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(56,189,248,0.08);
+      border: 1px solid rgba(56,189,248,0.14);
+      color: #cbd5e1;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .chip.green {
+      background: rgba(16,185,129,0.10);
+      border: 1px solid rgba(16,185,129,0.18);
+      color: #10b981;
+    }
+
+    .chip.purple {
+      background: rgba(168,85,247,0.10);
+      border: 1px solid rgba(168,85,247,0.18);
+      color: #c4b5fd;
+    }
+
+    .section-title {
+      max-width: 1150px;
+      margin: 34px auto 14px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .section-title h2 { margin: 0; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 0 20px 50px;
+    }
+
+    @media (max-width: 980px) {
+      .cards { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: rgba(2,6,23,0.82);
+      border-radius: 16px;
+      padding: 24px;
+      border: 1px solid rgba(148,163,184,0.10);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(56,189,248,0.10), transparent 45%),
+        radial-gradient(circle at 82% 70%, rgba(16,185,129,0.08), transparent 50%),
+        radial-gradient(circle at 60% 30%, rgba(168,85,247,0.06), transparent 52%);
+      pointer-events: none;
+    }
+
+    .card > * { position: relative; }
+
+    .list {
+      margin-top: 12px;
+      padding-left: 18px;
+      color: #cbd5e1;
+    }
+
+    .list li { margin-bottom: 8px; }
+
+    .note {
+      max-width: 920px;
+      margin: 0 auto 40px;
+      padding: 18px 20px;
+      border-radius: 16px;
+      background: rgba(2,6,23,0.82);
+      border: 1px solid rgba(148,163,184,0.10);
+      color: #94a3b8;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .note i { color: #10b981; margin-top: 2px; }
+    .note strong { color: #e5e7eb; }
+  </style>
 </head>
+
 <body>
 
-<nav class="top-nav">
-  <a href="../">Home</a>
-  <a href="../skills/">Skills</a>
-  <a href="../projects/">Projects</a>
-  <a href="../experience/">Experience</a>
-  <a href="../contact/">Contact</a>
-</nav>
+<!-- Background layers (z-index: 0) -->
+<div class="ab-bg ab-dots"></div>
+<div class="ab-bg ab-orbs"><div class="ab-orb-purple"></div></div>
+<div class="ab-bg ab-icons">
+  <i class="fa-solid fa-user-tie"></i>
+  <i class="fa-solid fa-clipboard-check"></i>
+  <i class="fa-solid fa-chart-line"></i>
+  <i class="fa-solid fa-file-excel"></i>
+  <i class="fa-solid fa-diagram-project"></i>
+  <i class="fa-solid fa-handshake"></i>
+</div>
 
-<header class="page-header">
-  <h1>About Me</h1>
-  <p>Your Data Expert</p>
-</header>
+<!-- Readability overlay (z-index: 1) -->
+<div class="readability"></div>
 
-<section class="content">
+<!-- Content layer (z-index: 2) -->
+<div class="page-layer">
 
-  <div class="card">
-    <h2>Freelance Data Analyst</h2>
-    <p class="muted">
-      Excel Dashboards • Reporting • Power Query • SQL Basics
+  <nav class="top-nav">
+    <a href="../">Home</a>
+    <a href="../skills/">Skills</a>
+    <a href="../projects/">Projects</a>
+    <a href="../experience/">Experience</a>
+    <a href="../certificates/">Certificates</a>
+    <a href="../contact/">Contact</a>
+  </nav>
+
+  <header class="page-header">
+    <h1>About</h1>
+    <p>A clear, reliable approach to dashboards and reporting — designed for real business decisions.</p>
+  </header>
+
+  <div class="wrap">
+    <p class="subtitle">
+      I’m a freelance Data Analyst specializing in Excel dashboards and business reporting.
+      I help clients clean and structure data, track KPIs, and deliver refreshable files that are easy to maintain.
     </p>
-    <p>
-      I turn raw data into clear insights that drive faster, smarter decisions.
-      I help businesses understand performance without complexity.
-    </p>
+
+    <div class="hero-grid">
+      <div class="panel">
+        <h2 style="margin:0;">Ayman Ibrahim — Your Data Expert</h2>
+        <div class="meta">
+          I turn raw data into clear insights that drive faster, smarter decisions.
+          Every delivery includes a clean data tab, a structured report/dashboard, and documented refresh steps.
+        </div>
+
+        <div class="chips">
+          <span class="chip"><i class="fa-solid fa-file-excel"></i> Excel Dashboards</span>
+          <span class="chip"><i class="fa-solid fa-arrows-rotate"></i> Power Query</span>
+          <span class="chip"><i class="fa-solid fa-chart-line"></i> KPI Reporting</span>
+          <span class="chip purple"><i class="fa-solid fa-database"></i> SQL Basics</span>
+          <span class="chip green"><i class="fa-solid fa-check-double"></i> Quality Checks</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2 style="margin:0;">How I Work</h2>
+        <div class="meta">A simple, repeatable process that keeps results accurate and easy to refresh.</div>
+        <div class="chips" style="margin-top:12px;">
+          <span class="chip"><i class="fa-solid fa-bullseye"></i> Clarify goal</span>
+          <span class="chip"><i class="fa-solid fa-filter"></i> Validate data</span>
+          <span class="chip"><i class="fa-solid fa-layer-group"></i> Build model</span>
+          <span class="chip green"><i class="fa-solid fa-file-signature"></i> Document + handover</span>
+          <span class="chip purple"><i class="fa-solid fa-video"></i> Walkthrough (optional)</span>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="card">
-    <h2>How I Work</h2>
-    <ul class="steps">
-      <li>Clarify the goal</li>
-      <li>Validate and clean the data</li>
-      <li>Build dashboards & reports</li>
-      <li>Deliver documented, refreshable files</li>
-    </ul>
-    <p class="muted">Optional short video walkthrough available.</p>
+  <div class="section-title">
+    <h2>What I Do</h2>
+    <span class="chip"><i class="fa-solid fa-bolt"></i> Clean outputs, fast updates</span>
   </div>
 
-  <div class="card">
-    <h2>Education</h2>
-    <ul>
-      <li>Data Analysis Specialist Track — DEPI</li>
-      <li>PhD Candidate, Electronics & Communications Engineering</li>
-      <li>M.Sc. ECE (AAST)</li>
-      <li>M.Eng. Communications</li>
-      <li>B.Sc. ECE — Alexandria University</li>
-    </ul>
+  <div class="cards">
+    <div class="card">
+      <h3 style="margin:0;"><i class="fa-solid fa-filter" style="color:#38bdf8;margin-right:10px;"></i>Data Cleaning & Validation</h3>
+      <ul class="list">
+        <li>Fix inconsistent formats and missing values</li>
+        <li>Remove duplicates and standardize entries</li>
+        <li>Add validation checks to reduce errors</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0;"><i class="fa-solid fa-chart-line" style="color:#10b981;margin-right:10px;"></i>KPI Dashboards</h3>
+      <ul class="list">
+        <li>Dashboards that highlight the most important numbers</li>
+        <li>Trends, comparisons, targets vs actual</li>
+        <li>Simple visuals for fast decision-making</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0;"><i class="fa-solid fa-arrows-rotate" style="color:#38bdf8;margin-right:10px;"></i>Refreshable Reporting</h3>
+      <ul class="list">
+        <li>Power Query pipelines that refresh in seconds</li>
+        <li>Weekly/monthly report templates</li>
+        <li>Clear structure for easy maintenance</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0;"><i class="fa-solid fa-file-signature" style="color:#c4b5fd;margin-right:10px;"></i>Documentation & Handover</h3>
+      <ul class="list">
+        <li>Organized workbook layout and clean data tab</li>
+        <li>Documented steps for refresh and updates</li>
+        <li>Optional short walkthrough video</li>
+      </ul>
+    </div>
   </div>
 
-</section>
+  <div class="note">
+    <i class="fa-solid fa-circle-check"></i>
+    <div>
+      <strong>Delivery standard:</strong> A well-organized workbook, clean data tab, clear dashboard/report layout,
+      and documented steps to keep everything easy to maintain and refresh.
+    </div>
+  </div>
 
-<footer>
-  © 2026 Ayman Ibrahim
-</footer>
+  <footer>
+    © 2026 Ayman Ibrahim
+  </footer>
+
+</div>
 
 </body>
 </html>
