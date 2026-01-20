@@ -13,29 +13,35 @@ body {
 
 /* NAV */
 .top-nav {
-  position: absolute;
-  top: 20px;
-  right: 30px;
+position: fixed;
+top: 30px;
+right: 50px;
+z-index: 100;
 }
+
 
 .top-nav a {
-  margin-left: 20px;
-  color: #94a3b8;
-  font-weight: 500;
+margin-left: 22px;
+color: #94a3b8;
+font-weight: 500;
 }
 
+
 .top-nav a:hover {
-  color: #38bdf8;
+color: #38bdf8;
 }
 
 /* LANDING HERO */
 .landing {
-  min-height: 100vh;
-  padding: 120px 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  max-width: 1100px;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+justify-content: center;
+
+
+max-width: 1200px;
+margin: 0 auto; /* centers content */
+padding: 120px 60px;
 }
 
 .status {
