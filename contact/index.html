@@ -1,1 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact | Ayman Ibrahim</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="../assets/style.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Page-only styling for a premium contact layout -->
+  <style>
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 10px 20px 80px;
+    }
+
+    .subtitle {
+      text-align: center;
+      max-width: 860px;
+      margin: 0 auto 26px;
+      color: #94a3b8;
+      font-size: 1.05rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    @media (max-width: 980px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: #020617;
+      border-radius: 16px;
+      padding: 26px;
+      border: 1px solid rgba(148,163,184,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(56,189,248,0.14), transparent 45%),
+        radial-gradient(circle at 82% 70%, rgba(16,185,129,0.10), transparent 48%);
+      pointer-events: none;
+    }
+
+    .panel > * { position: relative; }
+
+    .title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(56,189,248,0.08);
+      border: 1px solid rgba(56,189,248,0.15);
+      color: #cbd5e1;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .pill.green {
+      background: rgba(16,185,129,0.10);
+      border: 1px solid rgba(16,185,129,0.18);
+      color: #10b981;
+    }
+
+    .links {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .link-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(2,6,23,0.60);
+      border: 1px solid rgba(148,163,184,0.10);
+      color: #cbd5e1;
+      text-decoration: none;
+    }
+
+    .link-item:hover {
+      border-color: rgba(56,189,248,0.28);
+      transform: translateY(-1px);
+      transition: 0.15s ease;
+    }
+
+    .icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: rgba(56,189,248,0.10);
+      border: 1px solid rgba(56,189,248,0.18);
+      color: #38bdf8;
+      flex: 0 0 auto;
+    }
+
+    .link-text small {
+      display: block;
+      color: #94a3b8;
+      margin-top: 2px;
+      font-size: 12px;
+    }
+
+    .cta {
+      margin-top: 14px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn2 {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .btn2.primary {
+      background: #10b981;
+      color: #020617;
+    }
+
+    .btn2.secondary {
+      border: 1px solid #10b981;
+      color: #10b981;
+      background: transparent;
+    }
+
+    .note {
+      margin-top: 18px;
+      color: #94a3b8;
+      line-height: 1.7;
+    }
+
+    .mini {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(2,6,23,0.70);
+      border: 1px solid rgba(148,163,184,0.10);
+      color: #cbd5e1;
+    }
+
+    .mini strong { color: #e5e7eb; }
+  </style>
+</head>
+
+<body>
+
+<nav class="top-nav">
+  <a href="../">Home</a>
+  <a href="../about/">About</a>
+  <a href="../skills/">Skills</a>
+  <a href="../projects/">Projects</a>
+  <a href="../experience/">Experience</a>
+  <a href="../certificates/">Certificates</a>
+</nav>
+
+<header class="page-header">
+  <h1>Contact</h1>
+  <p>Let’s connect — I’m happy to discuss dashboards, reporting, and refreshable Excel workflows.</p>
+</header>
+
+<div class="wrap">
+
+  <p class="subtitle">
+    Prefer a quick message? Use WhatsApp or email. For professional updates, connect on LinkedIn.
+  </p>
+
+  <div class="grid">
+
+    <!-- LINKS PANEL -->
+    <div class="panel">
+      <div class="title-row">
+        <h2 style="margin:0;">Links</h2>
+        <span class="pill green"><i class="fa-solid fa-circle-check"></i> Available</span>
+      </div>
+
+      <div class="links">
+
+        <a class="link-item" href="https://linkedin.com/in/ayman-boghdady-8a2b1319" target="_blank" rel="noopener">
+          <div class="icon"><i class="fa-brands fa-linkedin-in"></i></div>
+          <div class="link-text">
+            <div><strong>LinkedIn</strong></div>
+            <small>linkedin.com/in/ayman-boghdady-8a2b1319</small>
+          </div>
+        </a>
+
+        <div class="link-item" style="cursor: default;">
+          <div class="icon"><i class="fa-solid fa-location-dot"></i></div>
+          <div class="link-text">
+            <div><strong>Location</strong></div>
+            <small>Alexandria, Egypt</small>
+          </div>
+        </div>
+
+        <a class="link-item" href="mailto:aymnali8088@gmail.com">
+          <div class="icon"><i class="fa-solid fa-envelope"></i></div>
+          <div class="link-text">
+            <div><strong>Email</strong></div>
+            <small>aymnali8088@gmail.com</small>
+          </div>
+        </a>
+
+        <a class="link-item" href="https://wa.me/201095905995" target="_blank" rel="noopener">
+          <div class="icon"><i class="fa-brands fa-whatsapp"></i></div>
+          <div class="link-text">
+            <div><strong>Phone / WhatsApp</strong></div>
+            <small>+20 109 590 5995</small>
+          </div>
+        </a>
+
+      </div>
+
+      <div class="cta">
+        <a class="btn2 primary" href="mailto:aymnali8088@gmail.com">
+          <i class="fa-solid fa-paper-plane"></i> Email Me
+        </a>
+        <a class="btn2 secondary" href="https://wa.me/201095905995" target="_blank" rel="noopener">
+          <i class="fa-brands fa-whatsapp"></i> WhatsApp
+        </a>
+      </div>
+
+      <div class="note">
+        Typical response time: <strong style="color:#e5e7eb;">within 24–48 hours</strong>.
+      </div>
+    </div>
+
+    <!-- QUICK INFO PANEL -->
+    <div class="panel">
+      <div class="title-row">
+        <h2 style="margin:0;">Quick Info</h2>
+        <span class="pill"><i class="fa-solid fa-shield-halved"></i> Professional</span>
+      </div>
+
+      <div class="mini">
+        <strong>What to include in your message:</strong>
+        <ul style="margin-top:10px; padding-left:18px; color:#cbd5e1;">
+          <li>What the data is about (sales / inventory / HR / marketing)</li>
+          <li>Your goal (KPIs, dashboard, monthly report, cleanup)</li>
+          <li>Data format (Excel / CSV) and approximate size</li>
+          <li>Deadline (if any)</li>
+        </ul>
+      </div>
+
+      <div class="mini" style="margin-top:14px;">
+        <strong>Confidentiality:</strong><br />
+        Client names and datasets are not published. If needed, work can be demonstrated using anonymized samples.
+      </div>
+
+      <div class="mini" style="margin-top:14px;">
+        <strong>Primary tools:</strong><br />
+        Excel • Power Query • Dashboards • Business Reporting
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  © <span id="year"></span> Ayman Ibrahim — Excel Data Analyst
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
 
