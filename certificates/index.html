@@ -1,1 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Certificates | Ayman Ibrahim</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="../assets/style.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Page-only styling for certificate cards -->
+  <style>
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 10px 20px 70px;
+    }
+
+    .subtitle {
+      text-align: center;
+      max-width: 820px;
+      margin: 0 auto 28px;
+      color: #94a3b8;
+      font-size: 1.05rem;
+    }
+
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+    @media (max-width: 900px) {
+      .cert-grid { grid-template-columns: 1fr; }
+    }
+
+    .cert-card {
+      background: #020617;
+      border-radius: 14px;
+      padding: 26px;
+      border: 1px solid rgba(148,163,184,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cert-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(56,189,248,0.14), transparent 45%),
+        radial-gradient(circle at 85% 70%, rgba(16,185,129,0.10), transparent 48%);
+      pointer-events: none;
+    }
+
+    .cert-head {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .cert-title {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+
+    .provider {
+      position: relative;
+      margin-top: 8px;
+      color: #94a3b8;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(56,189,248,0.08);
+      border: 1px solid rgba(56,189,248,0.15);
+      color: #cbd5e1;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .pill.green {
+      background: rgba(16,185,129,0.10);
+      border: 1px solid rgba(16,185,129,0.18);
+      color: #10b981;
+    }
+
+    .tags {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(56,189,248,0.08);
+      border: 1px solid rgba(56,189,248,0.14);
+      color: #cbd5e1;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .tag i { color: #38bdf8; }
+
+    .note {
+      margin-top: 26px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 18px 20px;
+      border-radius: 14px;
+      background: rgba(2,6,23,0.75);
+      border: 1px solid rgba(148,163,184,0.10);
+      color: #94a3b8;
+    }
+
+    .note i { color: #10b981; margin-top: 2px; }
+    .note strong { color: #e5e7eb; }
+  </style>
+</head>
+
+<body>
+
+<nav class="top-nav">
+  <a href="../">Home</a>
+  <a href="../about/">About</a>
+  <a href="../skills/">Skills</a>
+  <a href="../projects/">Projects</a>
+  <a href="../experience/">Experience</a>
+  <a href="../contact/">Contact</a>
+</nav>
+
+<header class="page-header">
+  <h1>Certificates</h1>
+  <p>Focused training and proof of skills — data analysis, SQL, and Excel reporting.</p>
+</header>
+
+<div class="wrap">
+  <p class="subtitle">
+    These certificates highlight practical skills I use in real reporting and dashboard work.
+    Each one strengthens the workflow: clean data → build insights → deliver clear outputs.
+  </p>
+
+  <div class="cert-grid">
+
+    <!-- Certificate 1 -->
+    <div class="cert-card">
+      <div class="cert-head">
+        <h2 class="cert-title">Introduction to SQL</h2>
+        <span class="pill green"><i class="fa-solid fa-award"></i> Dec 2025</span>
+      </div>
+
+      <div class="provider">
+        <span class="pill"><i class="fa-solid fa-building"></i> DataCamp</span>
+        <span class="pill"><i class="fa-solid fa-calendar"></i> Issued: Dec, 2025</span>
+      </div>
+
+      <div class="tags">
+        <span class="tag"><i class="fa-solid fa-tag"></i> SQL Basics</span>
+        <span class="tag"><i class="fa-solid fa-tag"></i> Filtering</span>
+        <span class="tag"><i class="fa-solid fa-tag"></i> Sorting</span>
+        <span class="tag"><i class="fa-solid fa-tag"></i> Aggregations</span>
+        <span class="tag"><i class="fa-solid fa-tag"></i> Data Extraction</span>
+        <span class="tag"><i class="fa-solid fa-tag"></i> Data Analysis</span>
+        <span class="tag"><i class="fa-solid fa-tag"></i> Database Fundamentals</span>
+        <span class="tag"><i class="fa-solid fa-tag"></i> Querying</span>
+      </div>
+    </div>
+
+    <!-- Certificate 2 -->
+    <div class="cert-card">
+      <div class="cert-head">
+        <h2 class="cert-title">Data Analysis with Excel Pivot Tables</h2>
+        <span class="pill green"><i class="fa-solid fa-award"></i> Nov 2025</span>
+      </div>
+
+      <div class="provider">
+        <span class="pill"><i class="fa-solid fa-building"></i> 365 Data Science</span>
+        <span class="pill"><i class="fa-solid fa-calendar"></i> Issued: Nov, 2025</span>
+      </div>
+
+      <div class="tags">
+        <span class="tag"><i class="fa-solid fa-tag"></i> Data Analysis</span>
+        <span class="tag"><i class="fa-solid fa-tag"></i> Excel Dashboards</span>
+        <span class="tag"><i class="fa-solid fa-tag"></i> KPI Tracking</span>
+        <span class="tag"><i class="fa-solid fa-tag"></i> Data Summarization</span>
+        <span class="tag"><i class="fa-solid fa-tag"></i> Data Visualization</span>
+        <span class="tag"><i class="fa-solid fa-tag"></i> Business Reporting</span>
+        <span class="tag"><i class="fa-solid fa-tag"></i> Trend Analysis</span>
+        <span class="tag"><i class="fa-solid fa-tag"></i> Data Cleaning</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="note">
+    <i class="fa-solid fa-circle-info"></i>
+    <div>
+      <strong>Note:</strong> More certificates available upon request.
+    </div>
+  </div>
+</div>
+
+<footer>
+  © 2026 Ayman Ibrahim
+</footer>
+
+</body>
+</html>
 
